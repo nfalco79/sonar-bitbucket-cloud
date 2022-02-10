@@ -110,6 +110,9 @@ public class PullRequestPostAnalysisTask implements PostProjectAnalysisTask {
             boolean hasToApprove = Status.OK == qualityGate.getStatus();
             if (isApproved != hasToApprove) {
                 client.setPullRequestApproval(project, repoSlug, prId, hasToApprove);
+                LOGGER.info("Pull request {} approved={}", prId, hasToApprove);
+            } else {
+                LOGGER.info("Pull request {} already dis/approved", prId);
             }
         } catch (IOException e) {
             LOGGER.error("Fails to approve pull request " + prId, e);

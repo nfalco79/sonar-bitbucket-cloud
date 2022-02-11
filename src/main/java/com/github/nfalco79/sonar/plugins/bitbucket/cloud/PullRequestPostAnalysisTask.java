@@ -36,6 +36,7 @@ import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
 import com.github.nfalco79.bitbucket.client.BitbucketCloudClient;
+import com.github.nfalco79.bitbucket.client.Credentials;
 import com.github.nfalco79.bitbucket.client.Credentials.CredentialsBuilder;
 
 @ComputeEngineSide
@@ -105,7 +106,14 @@ public class PullRequestPostAnalysisTask implements PostProjectAnalysisTask {
         String repoSlug = segments[1];
 
         // perform REST call for approval
-        try (BitbucketCloudClient client = new BitbucketCloudClient(CredentialsBuilder.appPassword(config.username(), config.secret()))) {
+        Credentials credentials;
+        if (config.isOAuth2()) {
+            credentials = CredentialsBuilder.oauth2(config.username(), config.secret());
+        } else {
+            credentials = CredentialsBuilder.appPassword(config.username(), config.secret());
+        }
+
+        try (BitbucketCloudClient client = new BitbucketCloudClient(credentials)) {
             boolean isApproved = client.isPullRequestApproved(project, repoSlug, prId);
             boolean hasToApprove = Status.OK == qualityGate.getStatus();
             if (isApproved != hasToApprove) {

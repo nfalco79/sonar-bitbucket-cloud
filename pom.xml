@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.nfalco79</groupId>
     <artifactId>sonar-bitbucket-cloud</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>sonar-plugin</packaging>
     <name>Bitbucket Cloud Integration</name>
     <description>A Bitbucket Cloud integration for Sonarqube</description>
@@ -41,7 +41,7 @@
         <url>https://github.com/nfalco79/sonar-bitbucket-cloud</url>
         <connection>scm:git:git@github.com:nfalco79/sonar-bitbucket-cloud.git</connection>
         <developerConnection>scm:git:git@github.com:nfalco79/sonar-bitbucket-cloud.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>sonar-bitbucket-cloud-1.0.1</tag>
   </scm>
 
     <properties>

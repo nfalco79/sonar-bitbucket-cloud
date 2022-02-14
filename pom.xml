@@ -52,9 +52,12 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <releaseProfiles>release</releaseProfiles>
 
-        <sonar.apiVersion>8.9.6.50800</sonar.apiVersion>
         <sonar.pluginKey>bitcucketCloudIntegration</sonar.pluginKey>
         <sonar.pluginClass>com.github.nfalco79.sonar.plugins.bitbucket.cloud.BitbucketCloudPlugin</sonar.pluginClass>
+
+        <sonar.apiVersion>8.9.6.50800</sonar.apiVersion>
+        <mockito.version>4.3.1</mockito.version>
+        <assertj.version>3.22.0</assertj.version>
     </properties>
 
     <dependencies>
@@ -69,24 +72,29 @@
             <version>${sonar.apiVersion}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.sonarsource.sonarqube</groupId>
-            <artifactId>sonar-core</artifactId>
-            <version>${sonar.apiVersion}</version>
-            <scope>provided</scope>
-        </dependency>
 
         <!-- unit tests -->
-        <dependency>
-            <groupId>org.sonarsource.sonarqube</groupId>
-            <artifactId>sonar-testing-harness</artifactId>
-            <version>${sonar.apiVersion}</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.stefanbirkner</groupId>
+            <artifactId>system-rules</artifactId>
+            <version>1.19.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -1,6 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.nfalco79</groupId>
+    <parent>
+        <groupId>com.github.nfalco79</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
     <artifactId>sonar-bitbucket-cloud</artifactId>
     <version>1.0.2-SNAPSHOT</version>
     <packaging>sonar-plugin</packaging>
@@ -8,56 +12,24 @@
     <description>A Bitbucket Cloud integration for Sonarqube</description>
     <url>https://github.com/nfalco79/sonar-bitbucket-cloud</url>
 
-    <licenses>
-        <license>
-            <name>Apache 2</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>nfalco79</id>
-            <name>Nikolas Falco</name>
-        </developer>
-    </developers>
     <issueManagement>
         <system>github</system>
         <url>https://github.com/nfalco79/sonar-bitbucket-cloud-plugin/issues</url>
     </issueManagement>
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 
     <scm>
         <url>https://github.com/nfalco79/sonar-bitbucket-cloud</url>
         <connection>scm:git:git@github.com:nfalco79/sonar-bitbucket-cloud.git</connection>
         <developerConnection>scm:git:git@github.com:nfalco79/sonar-bitbucket-cloud.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
-        <sonar.organization>nfalco79</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <releaseProfiles>release</releaseProfiles>
-
+        <java.level>8</java.level>
         <sonar.pluginKey>bitcucketCloudIntegration</sonar.pluginKey>
         <sonar.pluginClass>com.github.nfalco79.sonar.plugins.bitbucket.cloud.BitbucketCloudPlugin</sonar.pluginClass>
 
         <sonar.apiVersion>8.9.6.50800</sonar.apiVersion>
-        <mockito.version>4.3.1</mockito.version>
-        <assertj.version>3.22.0</assertj.version>
     </properties>
 
     <dependencies>
@@ -75,163 +47,23 @@
 
         <!-- unit tests -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>com.github.stefanbirkner</groupId>
             <artifactId>system-rules</artifactId>
             <version>1.19.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>${mockito.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>${assertj.version}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>3.0.0-M5</version>
-                    <configuration>
-                        <releaseProfiles>release</releaseProfiles>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>3.0.1</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>sign</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>3.2.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.3.1</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
                 <artifactId>sonar-packaging-maven-plugin</artifactId>
-                <version>1.21.0.505</version>
                 <extensions>true</extensions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-javadoc</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
 
     <profiles>
-        <profile>
-            <id>enable-jacoco</id>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.eluder.coveralls</groupId>
-                            <artifactId>coveralls-maven-plugin</artifactId>
-                            <version>4.3.0</version>
-                            <configuration>
-                                <repoToken>${env.COVERALLS_REPO_TOKEN}</repoToken>
-                            </configuration>
-                            <dependencies>
-                                <!-- required on JDK 11 -->
-                                <dependency>
-                                    <groupId>com.sun.xml.bind</groupId>
-                                    <artifactId>jaxb-impl</artifactId>
-                                    <version>2.3.5</version>
-                                </dependency>
-                            </dependencies>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-                <plugins>
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.7</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>report</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <excludes>
-                                <exclude>**/*Constants.class</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <!-- used for local maven release build -->
-                    <plugin>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <profile>
             <id>m2e</id>
             <!-- This profile is only activated when building in Eclipse with m2e -->
@@ -244,7 +76,6 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-dependency-plugin</artifactId>
-                        <version>3.2.0</version>
                         <executions>
                             <execution>
                                 <id>unpack</id>
